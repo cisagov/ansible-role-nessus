@@ -10,7 +10,13 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 ).get_hosts("all")
 
 
-@pytest.mark.parametrize("x", [True])
-def test_packages(host, x):
-    """Run a dummy test, just to show what one would look like."""
-    assert x
+@pytest.mark.parametrize("pkg", ["nessus"])
+def test_packages(host, pkg):
+    """Test that the appropriate packages were installed."""
+    assert host.package(pkg).is_installed
+
+
+@pytest.mark.parametrize("f", ["/tmp/Nessus-8.2.3-debian6_amd64.deb"])
+def test_tmp_files(host, f):
+    """Test that the temporary files were deleted."""
+    assert not host.file(f).exists

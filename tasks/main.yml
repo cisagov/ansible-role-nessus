@@ -1,2 +1,46 @@
 ---
-# tasks file for skeleton
+# tasks file for nessus
+
+- name: Check if Nessus is installed
+  command: "dpkg-query --show --showformat='${db:Status-Status}|${Version}\n' \
+  nessus"
+  register: dpkg_query_result
+  ignore_errors: yes
+  changed_when: false
+
+- name: Fetch Nessus 8.2 package from S3
+  aws_s3:
+    bucket: ncats-3rd-party-packages
+    object: Nessus-8.2.3-debian6_amd64.deb
+    dest: /tmp/Nessus-8.2.3-debian6_amd64.deb
+    mode: get
+  become: no
+  delegate_to: localhost
+  when: not dpkg_query_result.stdout is search('installed|8.2')
+
+- name: Copy local Nessus package (.deb) to remote side
+  copy:
+    src: /tmp/Nessus-8.2.3-debian6_amd64.deb
+    dest: /tmp/Nessus-8.2.3-debian6_amd64.deb
+    mode: 0644
+  when: not dpkg_query_result.stdout is search('installed|8.2')
+
+- name: Install Nessus 8.2
+  apt:
+    deb: /tmp/Nessus-8.2.3-debian6_amd64.deb
+    state: present
+  when: not dpkg_query_result.stdout is search('installed|8.2')
+
+- name: Delete Nessus package (.deb) on remote side
+  file:
+    path: /tmp/Nessus-8.2.3-debian6_amd64.deb
+    state: absent
+  when: not dpkg_query_result.stdout is search('installed|8.2')
+
+- name: Delete local copy of Nessus package
+  file:
+    path: /tmp/Nessus-8.2.3-debian6_amd64.deb
+    state: absent
+  become: no
+  delegate_to: localhost
+  when: not dpkg_query_result.stdout is search('installed|8.2')
