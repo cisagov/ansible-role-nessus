@@ -21,6 +21,18 @@ data "aws_iam_policy_document" "s3_doc" {
     effect = "Allow"
 
     actions = [
+      "s3:ListBucket",
+    ]
+
+    resources = [
+      "${data.aws_s3_bucket.bucket.arn}",
+    ]
+  }
+
+  statement {
+    effect = "Allow"
+
+    actions = [
       "s3:GetObject",
     ]
 

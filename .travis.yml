@@ -40,8 +40,20 @@ env:
       H4P+Ng5CfKdzh9rLoKWozWrp9pPGBUOM22QcZPQEDNFVG9eRtca7g/I6llth3qhY\
       7JxigKBDNULeRHrg4RyMJ88zbhowaNSWjMSKRHuc9OAdgeD9zWA4="
 
+# Install terraform and terraform-doc
+before_install:
+  - >
+    wget
+    https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip
+    -O terraform.zip
+  - sudo unzip terraform.zip -d /opt/terraform
+  - sudo ln -s /opt/terraform/terraform /usr/bin/terraform
+  - rm -f terraform.zip
+  - go get github.com/segmentio/terraform-docs
+
 install:
   - pip install --upgrade -r requirements-test.txt
+
 script:
   - pre-commit run --all-files
   - molecule test
