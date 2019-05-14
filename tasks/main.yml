@@ -8,39 +8,44 @@
   ignore_errors: yes
   changed_when: false
 
+- name: Set fact for "has latest Nessus installed"
+  set_fact:
+    has_latest: "{{ dpkg_query_result.stdout is \
+    search('installed|{{ version }}') }}"
+
 - name: Fetch Nessus 8.2 package from S3
   aws_s3:
     bucket: ncats-3rd-party-packages
-    object: Nessus-8.2.3-debian6_amd64.deb
-    dest: /tmp/Nessus-8.2.3-debian6_amd64.deb
+    object: "{{ package_file }}"
+    dest: "/tmp/{{ package_file }}"
     mode: get
   become: no
   delegate_to: localhost
-  when: not dpkg_query_result.stdout is search('installed|8.2')
+  when: not has_latest
 
 - name: Copy local Nessus package (.deb) to remote side
   copy:
-    src: /tmp/Nessus-8.2.3-debian6_amd64.deb
-    dest: /tmp/Nessus-8.2.3-debian6_amd64.deb
+    src: "/tmp/{{ package_file }}"
+    dest: "/tmp/{{ package_file }}"
     mode: 0644
-  when: not dpkg_query_result.stdout is search('installed|8.2')
+  when: not has_latest
 
 - name: Install Nessus 8.2
   apt:
-    deb: /tmp/Nessus-8.2.3-debian6_amd64.deb
+    deb: "/tmp/{{ package_file }}"
     state: present
-  when: not dpkg_query_result.stdout is search('installed|8.2')
+  when: not has_latest
 
 - name: Delete Nessus package (.deb) on remote side
   file:
-    path: /tmp/Nessus-8.2.3-debian6_amd64.deb
+    path: "/tmp/{{ package_file }}"
     state: absent
-  when: not dpkg_query_result.stdout is search('installed|8.2')
+  when: not has_latest
 
 - name: Delete local copy of Nessus package
   file:
-    path: /tmp/Nessus-8.2.3-debian6_amd64.deb
+    path: "/tmp/{{ package_file }}"
     state: absent
   become: no
   delegate_to: localhost
-  when: not dpkg_query_result.stdout is search('installed|8.2')
+  when: not has_latest
