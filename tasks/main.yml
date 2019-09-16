@@ -30,7 +30,7 @@
     mode: 0644
   when: not has_latest
 
-- name: Install Nessus 8.2
+- name: Install Nessus 8.6.0
   apt:
     deb: "/tmp/{{ package_file }}"
     state: present
