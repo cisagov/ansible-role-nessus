@@ -16,7 +16,7 @@ def test_packages(host, pkg):
     assert host.package(pkg).is_installed
 
 
-@pytest.mark.parametrize("f", ["/tmp/Nessus-8.6.0-debian6_amd64.deb"])
+@pytest.mark.parametrize("f", ["/tmp/Nessus-8.7.1-debian6_amd64.deb"])
 def test_tmp_files(host, f):
     """Test that the temporary files were deleted."""
     assert not host.file(f).exists
