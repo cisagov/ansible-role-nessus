@@ -1,0 +1,8 @@
+---
+# default variables for nessus
+
+# The name of the Nessus Debian package file
+version: "8.7.1"
+
+# The name of the Nessus Debian package file
+package_file: "Nessus-{{ version }}-debian6_amd64.deb"
