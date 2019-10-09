@@ -1,8 +1,10 @@
 ---
 # vars file for nessus
+# Use this file to override default values found in defaults/main.yml or to set
+# other deployment specific variables.
+
+# The version number of the Nessus Debian package file
+# version: ""
 
 # The name of the Nessus Debian package file
-version: "8.2.3"
-
-# The name of the Nessus Debian package file
-package_file: "Nessus-{{ version }}-debian6_amd64.deb"
+# package_file: ""

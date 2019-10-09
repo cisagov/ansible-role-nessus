@@ -13,7 +13,7 @@
     has_latest: "{{ dpkg_query_result.stdout is \
     search('installed|{{ version }}') }}"
 
-- name: Fetch Nessus 8.2 package from S3
+- name: Fetch specified Nessus package from S3
   aws_s3:
     bucket: ncats-3rd-party-packages
     object: "{{ package_file }}"
@@ -30,7 +30,7 @@
     mode: 0644
   when: not has_latest
 
-- name: Install Nessus 8.2
+- name: Install specified Nessus version
   apt:
     deb: "/tmp/{{ package_file }}"
     state: present
