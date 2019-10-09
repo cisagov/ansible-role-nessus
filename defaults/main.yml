@@ -1,7 +1,7 @@
 ---
-# default variables for nessus
+# default variable values for nessus
 
-# The name of the Nessus Debian package file
+# The version number of the Nessus Debian package file
 version: "8.7.1"
 
 # The name of the Nessus Debian package file
