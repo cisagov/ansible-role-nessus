@@ -3,20 +3,51 @@ dependency:
   name: galaxy
 driver:
   name: docker
-lint:
-  name: yamllint
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
+  flake8
 platforms:
+  - name: amazonlinux2
+    image: amazonlinux:2
   - name: debian9
     image: debian:stretch-slim
+    dockerfile: Dockerfile_debian_9.j2
   - name: debian10
     image: debian:buster-slim
+  - name: debian11
+    image: debian:bullseye-slim
+  - name: kali
+    image: kalilinux/kali-rolling
+  - name: fedora29
+    image: fedora:29
+  # Ansible currently insists on installing python2-dnf, which does
+  # not exist in Fedora 30.  Until that is resolved, we can't use
+  # Fedora 30.
+  # - name: fedora30
+  #   image: fedora:30
+  - name: fedora31
+    image: fedora:31
+  - name: ubuntu16
+    image: ubuntu:xenial
+  - name: ubuntu18
+    image: ubuntu:bionic
 provisioner:
   name: ansible
-  lint:
-    name: ansible-lint
+  defaults:
+      # The OS family and distribution for Kali is "Kali GNU/Linux",
+      # which is not an allowable group name in Ansible due to the
+      # space and the slash.  This option converts those characters to
+      # underscores when creating the group name.
+      force_valid_group_names: always
+      # This behavior makes Ansible go ahead and determine the correct
+      # version of python to use using the heuristics that will become
+      # default in Ansible 2.12.  For more details, please see this
+      # link:
+      # https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html
+      interpreter_python: auto
 scenario:
   name: default
 verifier:
   name: testinfra
-  lint:
-    name: flake8
