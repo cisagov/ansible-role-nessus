@@ -1,3 +1,6 @@
 ---
 - src: https://github.com/cisagov/ansible-role-pip
   name: pip
+  # Use branch below until https://github.com/cisagov/ansible-role-pip/pull/12
+  # is merged
+  version: bugfix/add-kali-specific-vars
