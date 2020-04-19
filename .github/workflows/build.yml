@@ -16,6 +16,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
+      - uses: cisagov/setup-env-github-action@develop
       - uses: actions/checkout@v2
       - name: Set up Python
         uses: actions/setup-python@v1
