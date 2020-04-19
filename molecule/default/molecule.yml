@@ -9,8 +9,6 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: amazonlinux2
-    image: amazonlinux:2
   - name: debian9
     image: debian:stretch-slim
     dockerfile: Dockerfile_debian_9.j2
@@ -20,19 +18,6 @@ platforms:
     image: debian:bullseye-slim
   - name: kali
     image: kalilinux/kali-rolling
-  - name: fedora29
-    image: fedora:29
-  # Ansible currently insists on installing python2-dnf, which does
-  # not exist in Fedora 30.  Until that is resolved, we can't use
-  # Fedora 30.
-  # - name: fedora30
-  #   image: fedora:30
-  - name: fedora31
-    image: fedora:31
-  - name: ubuntu16
-    image: ubuntu:xenial
-  - name: ubuntu18
-    image: ubuntu:bionic
 provisioner:
   name: ansible
   config_options:
