@@ -16,7 +16,7 @@ variable "bucket_name" {
 
 variable "nessus_package_pattern" {
   description = "The pattern that matches the name of Nessus package objects in the S3 bucket specified by the bucket_name variable."
-  default     = "Nessus-?.?.?-debian6_amd64.deb"
+  default     = "Nessus-*-debian6_amd64.deb"
 }
 
 variable "tags" {
