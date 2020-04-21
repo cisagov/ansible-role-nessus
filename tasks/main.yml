@@ -15,7 +15,7 @@
 
 - name: Fetch specified Nessus package from S3
   aws_s3:
-    bucket: ncats-3rd-party-packages
+    bucket: "{{ package_bucket }}"
     object: "{{ package_file }}"
     dest: "/tmp/{{ package_file }}"
     mode: get

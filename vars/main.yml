@@ -6,5 +6,8 @@
 # The version number of the Nessus Debian package file
 # version: ""
 
+# The AWS S3 bucket containing the Nessus Debian package file
+# package_bucket: ""
+
 # The name of the Nessus Debian package file
 # package_file: ""
