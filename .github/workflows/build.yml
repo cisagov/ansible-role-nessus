@@ -7,6 +7,7 @@ on: [
 ]
 
 env:
+  AWS_DEFAULT_REGION: us-east-1
   CURL_CACHE_DIR: ~/.cache/curl
   PIP_CACHE_DIR: ~/.cache/pip
   PRE_COMMIT_CACHE_DIR: ~/.cache/pre-commit
@@ -118,5 +119,13 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install --upgrade --requirement requirements-test.txt
+      - name: Assume AWS build role
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+          role-to-assume: ${{ secrets.BUILD_ROLE_TO_ASSUME }}
+          role-duration-seconds: 3600
       - name: Run molecule tests
         run: molecule test
