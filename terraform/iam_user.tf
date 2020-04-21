@@ -29,7 +29,7 @@ module "bucket_access" {
   role_name     = "ThirdPartyBucketRead-${aws_iam_user.user.name}"
   role_tags = merge(var.tags,
     {
-      "GitHub_Secret_Name"             = "BUILD_ROLE_TO_ASSUME",
+      "GitHub_Secret_Name"             = "TEST_ROLE_TO_ASSUME",
       "GitHub_Secret_Terraform_Lookup" = "arn"
     }
   )

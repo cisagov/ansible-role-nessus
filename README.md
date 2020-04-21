@@ -34,14 +34,14 @@ Here's how to use it in a playbook:
 ## Development Pre-requisites ##
 
 In order for the `molecule` tests to succeed in GitHub Actions, this project
-requires a build user to exist in AWS.  The accompanying terraform code
+requires a test user to exist in AWS.  The accompanying terraform code
 will create the user with the appropriate name and permissions.  This only
 needs to be run once per project, per AWS account.
 
-Before creating the build user, ensure that you are using an AWS profile with
+Before creating the test user, ensure that you are using an AWS profile with
 appropriate permissions.
 
-To create the build user, follow these instructions:
+To create the test user, follow these instructions:
 
 ```console
 cd terraform
