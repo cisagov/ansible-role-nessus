@@ -3,11 +3,11 @@
 # Use this file to override default values found in defaults/main.yml or to set
 # other deployment specific variables.
 
-# The version number of the Nessus Debian package file
-# version: ""
-
 # The AWS S3 bucket containing the Nessus Debian package file
 # package_bucket: ""
 
 # The name of the Nessus Debian package file
 # package_file: ""
+
+# The version number of the Nessus Debian package file
+# version: ""
