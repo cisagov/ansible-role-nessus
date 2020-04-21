@@ -1,5 +1,5 @@
 ---
-# default variable values for nessus
+# default variable values for ansible-role-nessus
 
 # The AWS S3 bucket containing the Nessus Debian package file
 package_bucket: "ncats-3rd-party-packages"
