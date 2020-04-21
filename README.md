@@ -31,6 +31,39 @@ Here's how to use it in a playbook:
     - nessus
 ```
 
+## Development Pre-requisites ##
+
+In order for the `molecule` tests to succeed in GitHub Actions, this project
+requires a build user to exist in AWS.  The accompanying terraform code
+will create the user with the appropriate name and permissions.  This only
+needs to be run once per project, per AWS account.
+
+Before creating the build user, ensure that you are using an AWS profile with
+appropriate permissions.
+
+To create the build user, follow these instructions:
+
+```console
+cd terraform
+terraform init -upgrade=true
+terraform apply
+```
+
+Once the user is created you will need to update the
+[repository's secrets](https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets)
+with the new encrypted environment variables. This should be done using the
+[`terraform-to-secrets`](https://github.com/cisagov/development-guide/tree/develop/project_setup#terraform-iam-credentials-to-github-secrets-)
+tool available in the
+[development guide](https://github.com/cisagov/development-guide). Instructions
+for how to use this tool can be found in the
+["Terraform IAM Credentials to GitHub Secrets" section](https://github.com/cisagov/development-guide/tree/develop/project_setup#terraform-iam-credentials-to-github-secrets-).
+of the Project Setup README.
+
+If you have appropriate permissions for the repository you can view existing
+secrets on the
+[appropriate page](https://github.com/cisagov/nessus-packer/settings/secrets)
+in the repository's settings.
+
 ## Contributing ##
 
 We welcome contributions!  Please see [here](CONTRIBUTING.md) for
