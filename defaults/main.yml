@@ -1,8 +1,11 @@
 ---
-# default variable values for nessus
+# default variable values for ansible-role-nessus
 
-# The version number of the Nessus Debian package file
-version: "8.7.1"
+# The AWS S3 bucket containing the Nessus Debian package file
+package_bucket: "ncats-3rd-party-packages"
 
 # The name of the Nessus Debian package file
 package_file: "Nessus-{{ version }}-debian6_amd64.deb"
+
+# The version number of the Nessus Debian package file
+version: "8.7.1"
