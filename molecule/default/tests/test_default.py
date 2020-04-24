@@ -12,7 +12,7 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 ).get_hosts("all")
 
 
-@pytest.mark.parametrize("pkg", ["nessus"])
+@pytest.mark.parametrize("pkg", ["expect", "nessus"])
 def test_packages(host, pkg):
     """Test that the appropriate packages were installed."""
     assert host.package(pkg).is_installed
