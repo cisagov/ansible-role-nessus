@@ -4,3 +4,7 @@
 # The expect package name
 expect_package_name:
   - expect
+
+# The jq package name
+jq_package_name:
+  - jq
