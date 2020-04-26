@@ -67,8 +67,5 @@
 # "expect" and "jq" are used downstream to automate creation of Nessus users
 - name: Install expect and jq packages
   package:
-    name: "{{ item }}"
+    name: "{{ package_names }}"
     state: present
-  loop:
-    - "{{ expect_package_name }}"
-    - "{{ jq_package_name }}"
