@@ -1,6 +1,7 @@
 ---
 # vars file for Debian
 
-# The expect package name
-expect_package_name:
+# The packages to install
+package_names:
   - expect
+  - jq

@@ -64,8 +64,8 @@
       paths:
         - "{{ role_path }}/vars"
 
-# "expect" is used downstream to automate creation of Nessus users
-- name: Install expect package
+# "expect" and "jq" are used downstream to automate creation of Nessus users
+- name: Install expect and jq packages
   package:
-    name: "{{ expect_package_name }}"
+    name: "{{ package_names }}"
     state: present
