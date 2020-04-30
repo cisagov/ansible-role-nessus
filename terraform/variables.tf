@@ -9,9 +9,15 @@ variable "aws_region" {
   default     = "us-east-1"
 }
 
-variable "bucket_name" {
-  description = "The name of the bucket that the user should be allowed to read from."
+variable "production_bucket_name" {
+  description = "The name of the S3 bucket that where the production Nessus package lives."
   default     = "cisa-cool-third-party-production"
+}
+
+variable "staging_bucket_name" {
+  type        = string
+  description = "The name of the S3 bucket that where the staging Nessus package lives."
+  default     = "cisa-cool-third-party-staging"
 }
 
 variable "nessus_package_pattern" {
