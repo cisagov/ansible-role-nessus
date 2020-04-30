@@ -11,7 +11,7 @@ variable "aws_region" {
 
 variable "bucket_name" {
   description = "The name of the bucket that the user should be allowed to read from."
-  default     = "ncats-3rd-party-packages"
+  default     = "cisa-cool-third-party-production"
 }
 
 variable "nessus_package_pattern" {
