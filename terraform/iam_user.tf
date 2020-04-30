@@ -14,11 +14,10 @@ resource "aws_iam_access_key" "key" {
 }
 
 module "bucket_access" {
+  source = "github.com/cisagov/s3-read-role-tf-module"
   providers = {
     aws = aws.images
   }
-
-  source = "github.com/cisagov/s3-read-role-tf-module"
 
   account_ids = [data.aws_caller_identity.current.account_id]
   entity_name = aws_iam_user.user.name
