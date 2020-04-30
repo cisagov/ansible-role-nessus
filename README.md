@@ -14,7 +14,7 @@ None.
 ## Role Variables ##
 
 - `package_bucket` - The name of the AWS S3 bucket containing the Nessus
-  Debian package file.  Default value: `"ncats-3rd-party-packages"`
+  Debian package file.  Default value: `"cisa-cool-third-party-production"`
 - `package_file` - The name of the Nessus Debian package file.
   Default value: `"Nessus-{{ version }}-debian6_amd64.deb"`
 - `version` - The version number of the Nessus Debian package file.
