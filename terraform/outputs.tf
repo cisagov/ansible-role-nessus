@@ -26,4 +26,5 @@ output "user" {
 output "user_access_key" {
   value       = aws_iam_access_key.key
   description = "The access key for the IAM user being created to test the cisagov/ansible-role-nessus Ansible role."
+  sensitive   = true
 }
