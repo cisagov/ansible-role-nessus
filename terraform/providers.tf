@@ -6,12 +6,13 @@ provider "aws" {
   region = var.aws_region
 }
 
-# The provider used to create roles that can read objects from an S3 bucket
+# The provider used to create roles that can read objects from the COOL
+# "third-party" bucket
 provider "aws" {
   alias  = "images"
   region = var.aws_region
   assume_role {
-    role_arn     = data.terraform_remote_state.images.outputs.provisionaccount_role.arn
+    role_arn     = data.terraform_remote_state.images.outputs.provisionthirdpartybucketreadroles_role.arn
     session_name = local.caller_user_name
   }
 }
