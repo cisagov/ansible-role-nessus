@@ -10,13 +10,13 @@ variable "aws_region" {
 }
 
 variable "production_bucket_name" {
-  description = "The name of the S3 bucket that where the production Nessus package lives."
+  description = "The name of the S3 bucket where the production Nessus package lives."
   default     = "cisa-cool-third-party-production"
 }
 
 variable "staging_bucket_name" {
   type        = string
-  description = "The name of the S3 bucket that where the staging Nessus package lives."
+  description = "The name of the S3 bucket where the staging Nessus package lives."
   default     = "cisa-cool-third-party-staging"
 }
 
