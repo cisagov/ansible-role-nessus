@@ -2,7 +2,7 @@
 # default variable values for ansible-role-nessus
 
 # The AWS S3 bucket containing the Nessus Debian package file
-package_bucket: "ncats-3rd-party-packages"
+package_bucket: "cisa-cool-third-party-production"
 
 # The name of the Nessus Debian package file
 package_file: "Nessus-{{ version }}-debian6_amd64.deb"
