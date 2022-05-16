@@ -5,11 +5,10 @@
 - name: Import python playbook
   ansible.builtin.import_playbook: python.yml
 
-# boto3 is installed anywhere we would be applying this Ansible role
+# boto3 is pre-installed anywhere we would be applying this Ansible
+# role
 - name: Install boto3 and pip
   hosts: all
-  roles:
-    - pip
   tasks:
     - name: Install boto3
       ansible.builtin.pip:
