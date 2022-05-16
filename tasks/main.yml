@@ -1,57 +1,53 @@
 ---
-# tasks file for ansible-role-nessus
-
 - name: Check if Nessus is installed
-  command: "dpkg-query --show --showformat='${db:Status-Status}|${Version}\n' \
-  nessus"
+  ansible.builtin.command: |
+    dpkg-query --show --showformat='${db:Status-Status}|${Version}\n' nessus
   register: dpkg_query_result
   ignore_errors: yes
   changed_when: false
 
 - name: Set fact for "has latest Nessus installed"
-  set_fact:
-    has_latest: "{{ dpkg_query_result.stdout is \
-    search('installed|{{ version }}') }}"
+  ansible.builtin.set_fact:
+    has_latest: |
+      "{{ dpkg_query_result.stdout is search('installed|%s' | format(version)) }}"
 
-- name: Fetch specified Nessus package from S3
-  aws_s3:
-    bucket: "{{ package_bucket }}"
-    object: "{{ package_file }}"
-    dest: "/tmp/{{ package_file }}"
-    mode: get
-  become: no
-  delegate_to: localhost
-  when: not has_latest
+- name: Install Nessus
+  block:
+    - name: Fetch specified Nessus package from S3
+      ansible.builtin.aws_s3:
+        bucket: "{{ package_bucket }}"
+        object: "{{ package_file }}"
+        dest: /tmp/{{ package_file }}
+        mode: get
+      become: no
+      delegate_to: localhost
 
-- name: Copy local Nessus package (.deb) to remote side
-  copy:
-    src: "/tmp/{{ package_file }}"
-    dest: "/tmp/{{ package_file }}"
-    mode: 0644
-  when: not has_latest
+    - name: Copy local Nessus package (.deb) to remote side
+      ansible.builtin.copy:
+        src: /tmp/{{ package_file }}
+        dest: /tmp/{{ package_file }}
+        mode: 0644
 
-- name: Install specified Nessus version
-  apt:
-    deb: "/tmp/{{ package_file }}"
-    state: present
-  when: not has_latest
+    - name: Install specified Nessus version
+      ansible.builtin.apt:
+        deb: /tmp/{{ package_file }}
+        state: present
 
-- name: Delete Nessus package (.deb) on remote side
-  file:
-    path: "/tmp/{{ package_file }}"
-    state: absent
-  when: not has_latest
+    - name: Delete Nessus package (.deb) on remote side
+      ansible.builtin.file:
+        path: /tmp/{{ package_file }}
+        state: absent
 
-- name: Delete local copy of Nessus package
-  file:
-    path: "/tmp/{{ package_file }}"
-    state: absent
-  become: no
-  delegate_to: localhost
+    - name: Delete local copy of Nessus package
+      ansible.builtin.file:
+        path: /tmp/{{ package_file }}
+        state: absent
+      become: no
+      delegate_to: localhost
   when: not has_latest
 
 - name: Load var file with package name(s) based on the OS type
-  include_vars: "{{ lookup('first_found', params) }}"
+  ansible.builtin.include_vars: "{{ lookup('first_found', params) }}"
   vars:
     params:
       files:
@@ -66,6 +62,6 @@
 
 # "expect" and "jq" are used downstream to automate creation of Nessus users
 - name: Install expect and jq packages
-  package:
+  ansible.builtin.package:
     name: "{{ package_names }}"
     state: present
