@@ -5,6 +5,7 @@
 # ------------------------------------------------------------------------------
 
 variable "aws_region" {
+  type        = string
   description = "The AWS region to deploy into (e.g. us-east-1)."
   default     = "us-east-1"
 }
@@ -30,7 +31,7 @@ variable "tags" {
   description = "Tags to apply to all AWS resources created"
 
   default = {
-    Team        = "NCATS OIS - Development"
-    Application = "ansible-role-nessus testing"
+    Team        = "VM Fusion - Development"
+    Application = "skeleton-ansible-role-with-test-user testing"
   }
 }

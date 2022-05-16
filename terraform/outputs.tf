@@ -1,30 +1,20 @@
-output "production_policy" {
-  value       = module.production_bucket_access.policy
-  description = "The IAM policy that can read the specified objects from the specified S3 production bucket."
+output "access_key" {
+  value       = module.user.access_key
+  description = "The IAM access key associated with the CI IAM user created by this module."
+  sensitive   = true
 }
 
 output "production_role" {
-  value       = module.production_bucket_access.role
-  description = "The IAM role that can read the specified objects from the specified S3 production bucket."
-}
-
-output "staging_policy" {
-  value       = module.staging_bucket_access.policy
-  description = "The IAM policy that can read the specified objects from the specified S3 staging bucket."
+  value       = module.user.production_role
+  description = "The IAM role that the CI user can assume to read SSM parameters in the production account."
 }
 
 output "staging_role" {
-  value       = module.staging_bucket_access.role
-  description = "The IAM role that can read the specified objects from the specified S3 staging bucket."
+  value       = module.user.staging_role
+  description = "The IAM role that the CI user can assume to read SSM parameters in the staging account."
 }
 
 output "user" {
-  value       = aws_iam_user.user
-  description = "The IAM user being created to test the cisagov/ansible-role-nessus Ansible role."
-}
-
-output "user_access_key" {
-  value       = aws_iam_access_key.key
-  description = "The access key for the IAM user being created to test the cisagov/ansible-role-nessus Ansible role."
-  sensitive   = true
+  value       = module.user.user
+  description = "The CI IAM user created by this module."
 }
