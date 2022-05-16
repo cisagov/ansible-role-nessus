@@ -9,8 +9,8 @@ module "production_bucket_access" {
   account_ids = [data.aws_caller_identity.current.account_id]
   entity_name = module.user.user.name
   role_name   = "ThirdPartyBucketRead-${module.user.user.name}"
-  s3_bucket  = var.production_bucket_name
-  s3_objects = [var.nessus_package_pattern]
+  s3_bucket   = var.production_bucket_name
+  s3_objects  = [var.nessus_package_pattern]
 }
 
 module "staging_bucket_access" {
