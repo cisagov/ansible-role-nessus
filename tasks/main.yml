@@ -44,7 +44,7 @@
         state: absent
       become: no
       delegate_to: localhost
-  when: not has_latest
+  when: not has_latest | bool
 
 - name: Load var file with package name(s) based on the OS type
   ansible.builtin.include_vars: "{{ lookup('first_found', params) }}"
