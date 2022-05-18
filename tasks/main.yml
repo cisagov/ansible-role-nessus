@@ -6,11 +6,6 @@
   ignore_errors: yes
   changed_when: false
 
-- name: Set fact for "has latest Nessus installed"
-  ansible.builtin.set_fact:
-    has_latest: |
-      "{{ dpkg_query_result.stdout is search('installed|%s' | format(version)) }}"
-
 - name: Install Nessus
   block:
     - name: Fetch specified Nessus package from S3
@@ -44,7 +39,10 @@
         state: absent
       become: no
       delegate_to: localhost
-  when: not has_latest | bool
+  # Only run this block is Nessus is installed and is the correct
+  # version
+  when: |
+    not dpkg_query_result.stdout is search('installed|%s' | format(version)) | bool
 
 - name: Load var file with package name(s) based on the OS type
   ansible.builtin.include_vars: "{{ lookup('first_found', params) }}"
