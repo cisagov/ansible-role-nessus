@@ -1,7 +1,7 @@
 ---
 galaxy_info:
-  author: First Last
-  description: Skeleton Ansible role with test user
+  author: Shane Frasier
+  description: Ansible role for installing Nessus.
   company: CISA Cyber Assessments
   galaxy_tags:
     - nessus
