@@ -32,6 +32,6 @@ variable "tags" {
 
   default = {
     Team        = "VM Fusion - Development"
-    Application = "skeleton-ansible-role-with-test-user testing"
+    Application = "ansible-role-nessus testing"
   }
 }
