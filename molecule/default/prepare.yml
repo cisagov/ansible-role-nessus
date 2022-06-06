@@ -7,7 +7,7 @@
 
 # boto3 is pre-installed anywhere we would be applying this Ansible
 # role
-- name: Install boto3 and pip
+- name: Install boto3
   hosts: all
   tasks:
     - name: Install boto3
