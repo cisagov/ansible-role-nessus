@@ -21,7 +21,7 @@ def test_packages(host, pkg):
 def test_nessus_version(host):
     """Check that the correct version of Nessus was installed."""
     cmd = host.run("/opt/nessus/sbin/nessusd --version")
-    assert " 8.15.4 " in cmd.stdout
+    assert " 8.15.5 " in cmd.stdout
 
 
 @pytest.mark.parametrize("f", ["/tmp/Nessus-8.15.4-debian6_amd64.deb"])

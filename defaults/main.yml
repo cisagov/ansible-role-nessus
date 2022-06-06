@@ -6,4 +6,4 @@ package_bucket: "cisa-cool-third-party-production"
 package_file: "Nessus-{{ version }}-debian6_amd64.deb"
 
 # The version number of the Nessus Debian package file
-version: "8.15.4"
+version: "8.15.5"
