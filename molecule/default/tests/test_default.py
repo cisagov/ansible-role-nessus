@@ -18,7 +18,13 @@ def test_packages(host, pkg):
     assert host.package(pkg).is_installed
 
 
-@pytest.mark.parametrize("f", ["/tmp/Nessus-8.7.1-debian6_amd64.deb"])
+def test_nessus_version(host):
+    """Check that the correct version of Nessus was installed."""
+    cmd = host.run("/opt/nessus/sbin/nessusd --version")
+    assert " 8.15.4 " in cmd.stdout
+
+
+@pytest.mark.parametrize("f", ["/tmp/Nessus-8.15.4-debian6_amd64.deb"])
 def test_tmp_files(host, f):
     """Test that the temporary files were deleted."""
     assert not host.file(f).exists
