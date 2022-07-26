@@ -5,11 +5,15 @@ architecture: amd64
 # The Linux distribution on which Nessus is to be installed
 distribution: debian6
 
-# The AWS S3 bucket containing the Nessus Debian package file
+# The format/file extension of the desired Nessus package file
+# (e.g. deb, rpm)
+format: deb
+
+# The name of the AWS S3 bucket containing the Nessus package file
 package_bucket: cisa-cool-third-party-production
 
-# The name of the Nessus Debian package file
-package_file: Nessus-{{ version }}-{{ distribution }}_{{ architecture }}.deb
+# The name of the Nessus package file
+package_file: Nessus-{{ version }}-{{ distribution }}_{{ architecture }}.{{ format }}
 
-# The version number of the Nessus Debian package file
+# The version number of the Nessus package file
 version: 8.15.5
