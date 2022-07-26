@@ -1,0 +1,10 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: Include ansible-role-nessus
+      ansible.builtin.include_role:
+        name: ansible-role-nessus
+      vars:
+        distribution: "debian9"
+        version: "10.3.0"
