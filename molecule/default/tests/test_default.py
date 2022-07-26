@@ -11,6 +11,15 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
     os.environ["MOLECULE_INVENTORY_FILE"]
 ).get_hosts("all")
 
+# The architecture as listed in the Nessus package filename
+arch = "amd64"
+# The Linux distribution as listed in the Nessus package filename
+distro = "debian6"
+# The format/file extension of the Nessus package
+fmt = "deb"
+# The version of Nessus that should be installed
+version = "8.15.5"
+
 
 @pytest.mark.parametrize("pkg", ["expect", "jq", "nessus"])
 def test_packages(host, pkg):
@@ -21,10 +30,10 @@ def test_packages(host, pkg):
 def test_nessus_version(host):
     """Check that the correct version of Nessus was installed."""
     cmd = host.run("/opt/nessus/sbin/nessusd --version")
-    assert " 8.15.5 " in cmd.stdout
+    assert f" {version} " in cmd.stdout
 
 
-@pytest.mark.parametrize("f", ["/tmp/Nessus-8.15.4-debian6_amd64.deb"])
+@pytest.mark.parametrize("f", [f"/tmp/Nessus-{version}-{distro}_{arch}.{fmt}"])
 def test_tmp_files(host, f):
     """Test that the temporary files were deleted."""
     assert not host.file(f).exists
