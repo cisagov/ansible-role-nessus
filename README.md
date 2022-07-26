@@ -65,7 +65,7 @@ None.
 | Variable | Description | Default | Required |
 |----------|-------------|---------|----------|
 | architecture | The processor architecture for which Nessus is to be installed. | `amd64` | No |
-| distribution | The Linux distribution on which Nessus is to be installed. | `amd64` | No |
+| distribution | The Linux distribution on which Nessus is to be installed. | `debian6` | No |
 | format | The format/file extension of the desired Nessus package file. | `deb` | No |
 | package_bucket | The name of the AWS S3 bucket containing the Nessus package file. | `cisa-cool-third-party-production` | No |
 | package_file | The name of the Nessus package file. | `Nessus-{{ version }}-{{ distribution }}_{{ architecture }}.{{ format }}` | No |
