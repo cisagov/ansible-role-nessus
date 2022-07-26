@@ -1,12 +1,13 @@
 ---
-# The processor architecture for which Nessus is to be installed
+# The processor architecture for which Nessus is to be installed, as
+# specified in the Nessus package filename
 architecture: amd64
 
-# The Linux distribution on which Nessus is to be installed
+# The Linux distribution for which Nessus is to be installed, as
+# specified in the Nessus package filename
 distribution: debian6
 
-# The format/file extension of the desired Nessus package file
-# (e.g. deb, rpm)
+# The format/file extension of the Nessus package file (e.g. deb, rpm)
 format: deb
 
 # The name of the AWS S3 bucket containing the Nessus package file
@@ -15,5 +16,6 @@ package_bucket: cisa-cool-third-party-production
 # The name of the Nessus package file
 package_file: Nessus-{{ version }}-{{ distribution }}_{{ architecture }}.{{ format }}
 
-# The version number of the Nessus package file
+# The version number of the Nessus package file, as specified in the
+# Nessus package filename
 version: 8.15.5
