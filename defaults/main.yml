@@ -1,20 +1,29 @@
 ---
-# The processor architecture for which Nessus is to be installed, as
-# specified in the Nessus package filename
-architecture: amd64
+# A dictionary whose keys are values of the Ansible fact
+# ansible_architecture and whose values are processor architecture for
+# which Nessus is to be installed, as specified in the Nessus package
+# filename
+architectures:
+  arm64: aarch64
+  i386: i386
+  x86_64: amd64
 
 # The Linux distribution for which Nessus is to be installed, as
 # specified in the Nessus package filename
 distribution: debian6
 
-# The format/file extension of the Nessus package file (e.g. deb, rpm)
-format: deb
+# A dictionary whose keys are values of the Ansible fact
+# ansible_os_family and whose values are the format/file extension of
+# the Nessus package file (e.g. deb, rpm)
+formats:
+  Debian: deb
+  RedHat: rpm
 
 # The name of the AWS S3 bucket containing the Nessus package file
 package_bucket: cisa-cool-third-party-production
 
 # The name of the Nessus package file
-package_file: Nessus-{{ version }}-{{ distribution }}_{{ architecture }}.{{ format }}
+package_file: Nessus-{{ version }}-{{ distribution }}_{{ architectures[ansible_architecture] }}.{{ formats[ansible_os_family] }}
 
 # The version number of the Nessus package file, as specified in the
 # Nessus package filename
