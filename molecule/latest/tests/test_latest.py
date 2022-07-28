@@ -1,5 +1,8 @@
 """Module containing the tests for the latest scenario."""
 
+# TODO: See cisagov/ansible-role-nessus#22 for some thoughts on
+# sharing the same test code among the different Molecule scenarios.
+
 # Standard Python Libraries
 import os
 
