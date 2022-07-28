@@ -64,9 +64,7 @@ None.
 
 | Variable | Description | Default | Required |
 |----------|-------------|---------|----------|
-| distribution | The Linux distribution on which Nessus is to be installed, as specified in the Nessus package filename. | `debian6` | No |
 | package_bucket | The name of the AWS S3 bucket containing the Nessus package file. | `cisa-cool-third-party-production` | No |
-| package_file | The name of the Nessus package file. | `Nessus-{{ version }}-{{ distribution }}_{{ architecture }}.{{ format }}` | No |
 | version | The version number of the Nessus package file, as specified in the Nessus package filename. | `8.15.5` | No |
 
 ## Dependencies ##
