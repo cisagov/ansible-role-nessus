@@ -1,8 +1,4 @@
 ---
-# The Linux distribution for which Nessus is to be installed, as
-# specified in the Nessus package filename
-distribution: debian6
-
 # The name of the AWS S3 bucket containing the Nessus package file
 package_bucket: cisa-cool-third-party-production
 

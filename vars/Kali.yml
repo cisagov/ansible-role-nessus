@@ -11,8 +11,9 @@ architectures:
 # The format/file extension of the Nessus package file (e.g. deb, rpm)
 format: deb
 
-# The name of the Nessus package file
-package_file_regex: "Nessus-{{ version }}-{{ ansible_distribution | lower }}[0-9]*_{{ architectures[ansible_architecture] }}.{{ format }}"
+# The name of the Nessus package file.  Note that we force the use of
+# the Debian packages for Kali, since it is based on Debian testing.
+package_file_regex: "Nessus-{{ version }}-debian[0-9]*_{{ architectures[ansible_architecture] }}.{{ format }}"
 
 # The packages to install
 package_names:
