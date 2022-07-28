@@ -13,6 +13,15 @@ architectures:
 distribution: debian6
 
 # A dictionary whose keys are values of the Ansible fact
+# ansible_os_family and whose values are the string used to separate
+# the distribution from the architecture in the Nessus package
+# filename.  For some reason the Nessus package filenames use periods
+# for RedHat-based distros and underscores for Debian-based distros.
+distribution_arch_separator:
+  Debian: _
+  RedHat: .
+
+# A dictionary whose keys are values of the Ansible fact
 # ansible_os_family and whose values are the format/file extension of
 # the Nessus package file (e.g. deb, rpm)
 formats:
@@ -23,7 +32,7 @@ formats:
 package_bucket: cisa-cool-third-party-production
 
 # The name of the Nessus package file
-package_file: Nessus-{{ version }}-{{ distribution }}_{{ architectures[ansible_architecture] }}.{{ formats[ansible_os_family] }}
+package_file: Nessus-{{ version }}-{{ distribution }}{{ distribution_arch_separator[ansible_os_family] }}{{ architectures[ansible_architecture] }}.{{ formats[ansible_os_family] }}
 
 # The version number of the Nessus package file, as specified in the
 # Nessus package filename
