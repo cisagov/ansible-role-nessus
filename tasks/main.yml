@@ -1,4 +1,15 @@
 ---
+- name: Load var file based on the OS type
+  ansible.builtin.include_vars: "{{ lookup('first_found', params) }}"
+  vars:
+    params:
+      files:
+        - "{{ ansible_distribution }}_{{ ansible_distribution_release }}.yml"
+        - "{{ ansible_distribution }}.yml"
+        - "{{ ansible_os_family }}.yml"
+      paths:
+        - "{{ role_path }}/vars"
+
 - name: Gather package facts
   ansible.builtin.package_facts:
 
@@ -41,17 +52,6 @@
     ansible_facts.packages.nessus is not defined
     or ansible_facts.packages.nessus[0].version is not defined
     or not ansible_facts.packages.nessus[0].version is search(version) | bool
-
-- name: Load var file with package name(s) based on the OS type
-  ansible.builtin.include_vars: "{{ lookup('first_found', params) }}"
-  vars:
-    params:
-      files:
-        - "{{ ansible_distribution }}_{{ ansible_distribution_release }}.yml"
-        - "{{ ansible_distribution }}.yml"
-        - "{{ ansible_os_family }}.yml"
-      paths:
-        - "{{ role_path }}/vars"
 
 # "expect" and "jq" are used downstream to automate creation of Nessus users
 - name: Install expect and jq packages
