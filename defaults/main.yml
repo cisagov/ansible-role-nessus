@@ -1,9 +1,7 @@
 ---
-# The AWS S3 bucket containing the Nessus Debian package file
-package_bucket: "cisa-cool-third-party-production"
+# The name of the AWS S3 bucket containing the Nessus package file
+package_bucket: cisa-cool-third-party-production
 
-# The name of the Nessus Debian package file
-package_file: "Nessus-{{ version }}-debian6_amd64.deb"
-
-# The version number of the Nessus Debian package file
-version: "8.15.5"
+# The version number of the Nessus package file, as specified in the
+# Nessus package filename
+version: 8.15.5

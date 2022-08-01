@@ -6,14 +6,15 @@
 architectures:
   arm64: aarch64
   i386: i386
-  x86_64: x86_64
+  x86_64: amd64
 
 # The format/file extension of the Nessus package file (e.g. deb, rpm)
-format: rpm
+format: deb
 
 # A regex that will match the name of the Nessus package file that
-# should be installed
-package_file_regex: "Nessus-{{ version }}-{{ ansible_distribution | lower }}[0-9]*\\.{{ architectures[ansible_architecture] }}\\.{{ format }}"
+# should be installed.  Note that we force the use of the Debian
+# packages for Kali, since it is based on Debian testing.
+package_file_regex: "Nessus-{{ version }}-debian[0-9]*_{{ architectures[ansible_architecture] }}\\.{{ format }}"
 
 # The packages to install
 package_names:

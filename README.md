@@ -64,9 +64,8 @@ None.
 
 | Variable | Description | Default | Required |
 |----------|-------------|---------|----------|
-| package_bucket | The name of the AWS S3 bucket containing the Nessus Debian package file. | `cisa-cool-third-party-production` | No |
-| package_file | The name of the Nessus Debian package file. | `Nessus-{{ version }}-debian6_amd64.deb` | No |
-| version | The version number of the Nessus Debian package file. | `8.7.1` | No |
+| package_bucket | The name of the AWS S3 bucket containing the Nessus package file. | `cisa-cool-third-party-production` | No |
+| version | The version number of the Nessus package file, as specified in the Nessus package filename. | `8.15.5` | No |
 
 ## Dependencies ##
 

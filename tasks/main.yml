@@ -1,50 +1,5 @@
 ---
-- name: Check if Nessus is installed
-  ansible.builtin.command: |
-    dpkg-query --show --showformat='${db:Status-Status}|${Version}\n' nessus
-  register: dpkg_query_result
-  ignore_errors: yes
-  changed_when: false
-
-- name: Install Nessus
-  block:
-    - name: Fetch specified Nessus package from S3
-      ansible.builtin.aws_s3:
-        bucket: "{{ package_bucket }}"
-        object: "{{ package_file }}"
-        dest: /tmp/{{ package_file }}
-        mode: get
-      become: no
-      delegate_to: localhost
-
-    - name: Copy local Nessus package (.deb) to remote side
-      ansible.builtin.copy:
-        src: /tmp/{{ package_file }}
-        dest: /tmp/{{ package_file }}
-        mode: 0644
-
-    - name: Install specified Nessus version
-      ansible.builtin.apt:
-        deb: /tmp/{{ package_file }}
-        state: present
-
-    - name: Delete Nessus package (.deb) on remote side
-      ansible.builtin.file:
-        path: /tmp/{{ package_file }}
-        state: absent
-
-    - name: Delete local copy of Nessus package
-      ansible.builtin.file:
-        path: /tmp/{{ package_file }}
-        state: absent
-      become: no
-      delegate_to: localhost
-  # Only run this block is Nessus is installed and is the correct
-  # version
-  when: |
-    not dpkg_query_result.stdout is search('installed|%s' | format(version)) | bool
-
-- name: Load var file with package name(s) based on the OS type
+- name: Load var file based on the OS type
   ansible.builtin.include_vars: "{{ lookup('first_found', params) }}"
   vars:
     params:
@@ -54,6 +9,82 @@
         - "{{ ansible_os_family }}.yml"
       paths:
         - "{{ role_path }}/vars"
+
+- name: Gather package facts
+  ansible.builtin.package_facts:
+
+- name: Install Nessus
+  block:
+    - name: Fetch list of keys in bucket
+      ansible.builtin.aws_s3:
+        bucket: "{{ package_bucket }}"
+        mode: list
+      become: no
+      delegate_to: localhost
+      register: keys
+
+    - name: Install Nessus package file
+      block:
+        - name: Fetch specified Nessus package from S3
+          ansible.builtin.aws_s3:
+            bucket: "{{ package_bucket }}"
+            object: "{{ package_file }}"
+            dest: /tmp/{{ package_file }}
+            mode: get
+          become: no
+          delegate_to: localhost
+
+        - name: Copy local Nessus package to remote side
+          ansible.builtin.copy:
+            src: /tmp/{{ package_file }}
+            dest: /tmp/{{ package_file }}
+            mode: 0644
+
+        - name: Install specified Nessus version
+          block:
+            - name: Install apt package
+              ansible.builtin.apt:
+                deb: /tmp/{{ package_file }}
+                state: present
+              when: ansible_pkg_mgr == "apt"
+            - name: Install dnf package
+              ansible.builtin.dnf:
+                # If we downloaded the RPM signing key from Tenable
+                # then we'd be downloading it from the same website as
+                # the package anyway.
+                disable_gpg_check: yes
+                name: /tmp/{{ package_file }}
+                state: present
+              when: ansible_pkg_mgr == "dnf"
+            - name: Install yum package
+              ansible.builtin.yum:
+                name: /tmp/{{ package_file }}
+                state: present
+              when: ansible_pkg_mgr == "yum"
+
+        - name: Delete Nessus package on remote side
+          ansible.builtin.file:
+            path: /tmp/{{ package_file }}
+            state: absent
+
+        - name: Delete local copy of Nessus package
+          ansible.builtin.file:
+            path: /tmp/{{ package_file }}
+            state: absent
+          become: no
+          delegate_to: localhost
+      vars:
+        package_file: "{{ keys.s3_keys | select('search', package_file_regex) | first }}"
+  # Only run this block if Nessus is not installed or is not the
+  # correct version.  Note that the Nessus package name can be
+  # capitalized or not capitalized.
+  when: |
+    (ansible_facts.packages.nessus is not defined
+     or ansible_facts.packages.nessus[0].version is not defined
+     or not ansible_facts.packages.nessus[0].version is search(version) | bool) and
+    (ansible_facts.packages.Nessus is not defined
+     or ansible_facts.packages.Nessus[0].version is not defined
+     or not ansible_facts.packages.Nessus[0].version is search(version) | bool)
 
 # "expect" and "jq" are used downstream to automate creation of Nessus users
 - name: Install expect and jq packages
