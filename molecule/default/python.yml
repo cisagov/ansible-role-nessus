@@ -1,9 +1,12 @@
 ---
 - hosts: all
-  name: Install pip3/python3 and remove pip2/python2
+  name: Install pip3/python3
   become: yes
   become_method: sudo
   roles:
-    - pip
-    - python
-    - remove_python2
+    - name: pip
+      vars:
+        install_python2: true
+    - name: python
+      vars:
+        install_pip2: true
