@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  name: Install pip3/python3
+  name: Install pip2/python2 and pip3/python3
   become: yes
   become_method: sudo
   roles:
