@@ -1,8 +1,7 @@
 # ansible-role-nessus #
 
 [![GitHub Build Status](https://github.com/cisagov/ansible-role-nessus/workflows/build/badge.svg)](https://github.com/cisagov/ansible-role-nessus/actions)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/cisagov/ansible-role-nessus.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/cisagov/ansible-role-nessus/alerts/)
-[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/cisagov/ansible-role-nessus.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/cisagov/ansible-role-nessus/context:python)
+[![CodeQL](https://github.com/cisagov/ansible-role-nessus/workflows/CodeQL/badge.svg)](https://github.com/cisagov/ansible-role-nessus/actions/workflows/codeql-analysis.yml)
 
 An Ansible role for installing
 [Nessus](https://www.tenable.com/products/nessus/nessus-professional).
@@ -79,8 +78,10 @@ Here's how to use it in a playbook:
 - hosts: all
   become: yes
   become_method: sudo
-  roles:
-    - nessus
+  tasks:
+    - name: Install Nessus
+      ansible.builtin.include_role:
+        name: nessus
 ```
 
 ## Contributing ##
