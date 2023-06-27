@@ -6,4 +6,4 @@
       ansible.builtin.include_role:
         name: ansible-role-nessus
       vars:
-        version: "10.3.0"
+        nessus_version: "10.3.0"

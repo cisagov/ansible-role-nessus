@@ -15,7 +15,7 @@ format: rpm
 # should be installed.  Note that we force the distribution name here,
 # because what Nessus uses ("fc") does not match what Ansible uses
 # ("Fedora").
-package_file_regex: "Nessus-{{ version }}-fc[0-9]*\\.{{ architectures[ansible_architecture] }}\\.{{ format }}"
+package_file_regex: "Nessus-{{ nessus_version }}-fc[0-9]*\\.{{ architectures[ansible_architecture] }}\\.{{ format }}"
 
 # The packages to install
 package_names:

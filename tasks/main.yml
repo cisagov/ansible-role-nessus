@@ -20,14 +20,14 @@
   when: |
     (ansible_facts.packages.nessus is not defined
      or ansible_facts.packages.nessus[0].version is not defined
-     or not ansible_facts.packages.nessus[0].version is search(version) | bool) and
+     or not ansible_facts.packages.nessus[0].version is search(nessus_version) | bool) and
     (ansible_facts.packages.Nessus is not defined
      or ansible_facts.packages.Nessus[0].version is not defined
-     or not ansible_facts.packages.Nessus[0].version is search(version) | bool)
+     or not ansible_facts.packages.Nessus[0].version is search(nessus_version) | bool)
   block:
     - name: Fetch list of keys in bucket
       ansible.builtin.aws_s3:
-        bucket: "{{ package_bucket }}"
+        bucket: "{{ nessus_package_bucket }}"
         mode: list
       become: no
       delegate_to: localhost
@@ -39,7 +39,7 @@
       block:
         - name: Fetch specified Nessus package from S3
           ansible.builtin.aws_s3:
-            bucket: "{{ package_bucket }}"
+            bucket: "{{ nessus_package_bucket }}"
             object: "{{ package_file }}"
             dest: /tmp/{{ package_file }}
             mode: get
