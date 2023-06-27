@@ -14,6 +14,16 @@
   ansible.builtin.package_facts:
 
 - name: Install Nessus
+  # Only run this block if Nessus is not installed or is not the
+  # correct version.  Note that the Nessus package name can be
+  # capitalized or not capitalized.
+  when: |
+    (ansible_facts.packages.nessus is not defined
+     or ansible_facts.packages.nessus[0].version is not defined
+     or not ansible_facts.packages.nessus[0].version is search(version) | bool) and
+    (ansible_facts.packages.Nessus is not defined
+     or ansible_facts.packages.Nessus[0].version is not defined
+     or not ansible_facts.packages.Nessus[0].version is search(version) | bool)
   block:
     - name: Fetch list of keys in bucket
       ansible.builtin.aws_s3:
@@ -24,6 +34,8 @@
       register: keys
 
     - name: Install Nessus package file
+      vars:
+        package_file: "{{ keys.s3_keys | select('search', package_file_regex) | first }}"
       block:
         - name: Fetch specified Nessus package from S3
           ansible.builtin.aws_s3:
@@ -73,20 +85,9 @@
             state: absent
           become: no
           delegate_to: localhost
-      vars:
-        package_file: "{{ keys.s3_keys | select('search', package_file_regex) | first }}"
-  # Only run this block if Nessus is not installed or is not the
-  # correct version.  Note that the Nessus package name can be
-  # capitalized or not capitalized.
-  when: |
-    (ansible_facts.packages.nessus is not defined
-     or ansible_facts.packages.nessus[0].version is not defined
-     or not ansible_facts.packages.nessus[0].version is search(version) | bool) and
-    (ansible_facts.packages.Nessus is not defined
-     or ansible_facts.packages.Nessus[0].version is not defined
-     or not ansible_facts.packages.Nessus[0].version is search(version) | bool)
 
-# "expect" and "jq" are used downstream to automate creation of Nessus users
+# "expect" and "jq" are used downstream to automate creation of Nessus
+# users
 - name: Install expect and jq packages
   ansible.builtin.package:
     name: "{{ package_names }}"
