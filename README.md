@@ -63,8 +63,8 @@ None.
 
 | Variable | Description | Default | Required |
 |----------|-------------|---------|----------|
-| package_bucket | The name of the AWS S3 bucket containing the Nessus package file. | `cisa-cool-third-party-production` | No |
-| version | The version number of the Nessus package file, as specified in the Nessus package filename. | `8.15.5` | No |
+| nessus_package_bucket | The name of the AWS S3 bucket containing the Nessus package file. | `cisa-cool-third-party-production` | No |
+| nessus_version | The version number of the Nessus package file, as specified in the Nessus package filename. | `8.15.5` | No |
 
 ## Dependencies ##
 
@@ -104,4 +104,4 @@ with this waiver of copyright interest.
 
 ## Author Information ##
 
-Shane Frasier - <jeremy.frasier@trio.dhs.gov>
+Shane Frasier - <jeremy.frasier@gwe.cisa.dhs.gov>
