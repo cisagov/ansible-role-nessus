@@ -29,7 +29,7 @@
       ansible.builtin.aws_s3:
         bucket: "{{ nessus_package_bucket }}"
         mode: list
-      become: no
+      become: false
       delegate_to: localhost
       register: keys
 
@@ -43,7 +43,7 @@
             object: "{{ package_file }}"
             dest: /tmp/{{ package_file }}
             mode: get
-          become: no
+          become: false
           delegate_to: localhost
 
         - name: Copy local Nessus package to remote side
@@ -64,7 +64,7 @@
                 # If we downloaded the RPM signing key from Tenable
                 # then we'd be downloading it from the same website as
                 # the package anyway.
-                disable_gpg_check: yes
+                disable_gpg_check: true
                 name: /tmp/{{ package_file }}
                 state: present
               when: ansible_pkg_mgr == "dnf"
@@ -83,7 +83,7 @@
           ansible.builtin.file:
             path: /tmp/{{ package_file }}
             state: absent
-          become: no
+          become: false
           delegate_to: localhost
 
 # "expect" and "jq" are used downstream to automate creation of Nessus
