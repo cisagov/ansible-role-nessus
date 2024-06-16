@@ -67,12 +67,7 @@
                 disable_gpg_check: true
                 name: /tmp/{{ package_file }}
                 state: present
-              when: ansible_pkg_mgr == "dnf"
-            - name: Install yum package
-              ansible.builtin.yum:
-                name: /tmp/{{ package_file }}
-                state: present
-              when: ansible_pkg_mgr == "yum"
+              when: ansible_pkg_mgr in ["dnf", "yum"]
 
         - name: Delete Nessus package on remote side
           ansible.builtin.file:
