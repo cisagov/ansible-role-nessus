@@ -1,19 +1,10 @@
 ---
-# A dictionary whose keys are values of the Ansible fact
-# ansible_architecture and whose values are processor architecture for
-# which Nessus is to be installed, as specified in the Nessus package
-# filename
-architectures:
-  aarch64: aarch64
-  i386: i386
-  x86_64: x86_64
-
 # The format/file extension of the Nessus package file (e.g. deb, rpm)
 format: rpm
 
 # A regex that will match the name of the Nessus package file that
 # should be installed
-package_file_regex: "Nessus-{{ nessus_version }}-{{ ansible_distribution | lower }}[0-9]*\\.{{ architectures[ansible_architecture] }}\\.{{ format }}"
+package_file_regex: "Nessus-{{ nessus_version }}-{{ ansible_distribution | lower }}[0-9]*\\.{{ ansible_architecture }}\\.{{ format }}"
 
 # The packages to install
 package_names:
