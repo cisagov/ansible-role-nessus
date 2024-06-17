@@ -181,6 +181,18 @@ jobs:
         architecture:
           - amd64
           - arm64
+        exclude:
+          # Nessus does not support ARM64 on Debian.
+          - architecture: arm64
+            platform: debian10-systemd
+          - architecture: arm64
+            platform: debian11-systemd
+          - architecture: arm64
+            platform: debian12-systemd
+          - architecture: arm64
+            platform: debian13-systemd
+          - architecture: arm64
+            platform: kali-systemd
         platform:
           - amazonlinux2023-systemd
           - debian10-systemd
