@@ -26,7 +26,7 @@
      or not ansible_facts.packages.Nessus[0].version is search(nessus_version) | bool)
   block:
     - name: Fetch list of keys in bucket
-      ansible.builtin.aws_s3:
+      amazon.aws.s3_object:
         bucket: "{{ nessus_package_bucket }}"
         mode: list
       become: false
@@ -38,7 +38,7 @@
         package_file: "{{ keys.s3_keys | select('search', package_file_regex) | first }}"
       block:
         - name: Fetch specified Nessus package from S3
-          ansible.builtin.aws_s3:
+          amazon.aws.s3_object:
             bucket: "{{ nessus_package_bucket }}"
             object: "{{ package_file }}"
             dest: /tmp/{{ package_file }}
@@ -67,12 +67,7 @@
                 disable_gpg_check: true
                 name: /tmp/{{ package_file }}
                 state: present
-              when: ansible_pkg_mgr == "dnf"
-            - name: Install yum package
-              ansible.builtin.yum:
-                name: /tmp/{{ package_file }}
-                state: present
-              when: ansible_pkg_mgr == "yum"
+              when: ansible_pkg_mgr in ["dnf", "yum"]
 
         - name: Delete Nessus package on remote side
           ansible.builtin.file:

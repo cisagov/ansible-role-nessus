@@ -4,8 +4,6 @@
 # which Nessus is to be installed, as specified in the Nessus package
 # filename
 architectures:
-  arm64: aarch64
-  i386: i386
   x86_64: amd64
 
 # The format/file extension of the Nessus package file (e.g. deb, rpm)
