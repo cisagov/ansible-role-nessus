@@ -9,4 +9,4 @@
       ansible.builtin.include_role: # noqa var-naming[no-role-prefix]
         name: ansible-role-nessus
       vars:
-        nessus_version: "10.7.4"
+        nessus_version: "10.8.3"
