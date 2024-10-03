@@ -14,7 +14,7 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 ).get_hosts("all")
 
 # The version of Nessus that should be installed
-version = "10.7.4"
+version = "10.8.3"
 
 
 def test_packages(host):
