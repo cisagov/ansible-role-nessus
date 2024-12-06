@@ -202,6 +202,8 @@ jobs:
             platform: fedora39-systemd
           - architecture: arm64
             platform: fedora40-systemd
+          - architecture: arm64
+            platform: fedora41-systemd
           # The old version of Nessus that we use by default does not
           # support ARM64 on Ubuntu, although newer versions do.
           - architecture: arm64
