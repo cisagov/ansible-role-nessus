@@ -78,6 +78,15 @@
                 name: /tmp/{{ package_file }}
                 state: present
               when: ansible_pkg_mgr in ["dnf", "yum"]
+            - name: Install dnf5 package
+              ansible.builtin.dnf5:
+                # If we downloaded the RPM signing key from Tenable
+                # then we'd be downloading it from the same website as
+                # the package anyway.
+                disable_gpg_check: true
+                name: /tmp/{{ package_file }}
+                state: present
+              when: ansible_pkg_mgr in ["dnf5"]
 
         - name: Delete Nessus package on remote side
           ansible.builtin.file:
