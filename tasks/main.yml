@@ -10,6 +10,16 @@
       paths:
         - "{{ role_path }}/vars"
 
+# python3-rpm is not always pre-installed on RedHat platforms that use
+# the dnf5 package manager, but it is a prerequisite for the
+# ansible.builtin.package_facts module.
+- name: Install prerequisites for ansible.builtin.package_facts (RedHat)
+  ansible.builtin.package:
+    name:
+      - python3-rpm
+  when:
+    - ansible_os_family == "RedHat"
+
 - name: Gather package facts
   ansible.builtin.package_facts:
 
