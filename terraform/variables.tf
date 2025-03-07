@@ -4,6 +4,11 @@
 # You must provide a value for each of these parameters.
 # ------------------------------------------------------------------------------
 
+variable "nessus_bucket" {
+  description = "The name of the S3 bucket where the production Nessus package lives."
+  nullable    = false
+  type        = string
+}
 variable "terraform_state_bucket" {
   description = "The name of the S3 bucket where Terraform state is stored."
   nullable    = false
@@ -23,20 +28,11 @@ variable "aws_region" {
   type        = string
 }
 
-variable "production_bucket_name" {
-  description = "The name of the S3 bucket where the production Nessus package lives."
-  default     = "cisa-cool-third-party-production"
-}
-
-variable "staging_bucket_name" {
-  type        = string
-  description = "The name of the S3 bucket where the staging Nessus package lives."
-  default     = "cisa-cool-third-party-staging"
-}
-
 variable "nessus_package_pattern" {
-  description = "The pattern that matches the name of Nessus package objects in the S3 bucket specified by the bucket_name variable."
   default     = "Nessus-*.*"
+  description = "The pattern that matches the name of Nessus package objects in the S3 bucket specified by the nessus_bucket variable."
+  nullable    = false
+  type        = string
 }
 
 variable "tags" {
