@@ -3,7 +3,7 @@
 module "bucket_access" {
   source = "github.com/cisagov/s3-read-role-tf-module"
   providers = {
-    aws = aws.images_thirdparty
+    aws = aws.images_provisionthirdpartybucketreadroles
   }
 
   account_ids = [data.aws_caller_identity.current.account_id]
