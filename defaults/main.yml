@@ -1,7 +1,4 @@
 ---
-# The name of the AWS S3 bucket containing the Nessus package file
-nessus_package_bucket: cisa-cool-third-party-production
-
 # The version number of the Nessus package file, as specified in the
 # Nessus package filename
 nessus_version: 8.15.5
