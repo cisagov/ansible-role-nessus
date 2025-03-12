@@ -5,3 +5,5 @@
     - name: Include ansible-role-nessus
       ansible.builtin.include_role:
         name: ansible-role-nessus
+      vars:
+        nessus_package_bucket: "{{ lookup('env', 'THIRD_PARTY_BUCKET') }}"
