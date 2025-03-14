@@ -8,6 +8,6 @@ module "user" {
     aws.images-ssm              = aws.images_ssm
   }
 
-  entity         = "ansible-role-burp-suite-pro"
+  entity         = "ansible-role-nessus"
   ssm_parameters = ["/third_party_bucket_name"]
 }
