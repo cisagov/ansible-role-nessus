@@ -7,7 +7,7 @@ format: rpm
 # because what Nessus uses ("fc") does not match what Ansible uses
 # ("Fedora").
 package_file_regex: >-
-  Nessus-{{ nessus_version }}-fc[0-9]*\\.{{ ansible_architecture }}\\.{{ format }}
+  Nessus-{{ nessus_version }}-fc[0-9]*\.{{ ansible_architecture }}\.{{ format }}
 
 # The packages to install
 package_names:
