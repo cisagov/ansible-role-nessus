@@ -60,7 +60,7 @@
           ansible.builtin.copy:
             src: /tmp/{{ package_file }}
             dest: /tmp/{{ package_file }}
-            mode: 0644
+            mode: u=rw,g=r,o=r
 
         - name: Install specified Nessus version
           block:
