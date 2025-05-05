@@ -30,8 +30,8 @@
   when: |
     (ansible_facts.packages.nessus is not defined
      or ansible_facts.packages.nessus[0].version is not defined
-     or not ansible_facts.packages.nessus[0].version is search(nessus_version) | bool) and
-    (ansible_facts.packages.Nessus is not defined
+     or not ansible_facts.packages.nessus[0].version is search(nessus_version) | bool)
+     and (ansible_facts.packages.Nessus is not defined
      or ansible_facts.packages.Nessus[0].version is not defined
      or not ansible_facts.packages.Nessus[0].version is search(nessus_version) | bool)
   block:
@@ -45,7 +45,8 @@
 
     - name: Install Nessus package file
       vars:
-        package_file: "{{ keys.s3_keys | select('search', package_file_regex) | first }}"
+        package_file: >-
+          {{ keys.s3_keys | select('search', package_file_regex) | first }}
       block:
         - name: Fetch specified Nessus package from S3
           amazon.aws.s3_object:
@@ -60,7 +61,7 @@
           ansible.builtin.copy:
             src: /tmp/{{ package_file }}
             dest: /tmp/{{ package_file }}
-            mode: 0644
+            mode: u=rw,g=r,o=r
 
         - name: Install specified Nessus version
           block:
