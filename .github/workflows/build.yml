@@ -233,11 +233,14 @@ jobs:
             platform: debian14-systemd
           - architecture: arm64
             platform: kali-systemd
-          # Nessus does not support ARM64 on Fedora.
+          # The old version of Nessus that we use by default does not
+          # support ARM64 on Fedora, although newer versions do.
           - architecture: arm64
             platform: fedora41-systemd
+            scenario: default
           - architecture: arm64
             platform: fedora42-systemd
+            scenario: default
           # The old version of Nessus that we use by default does not
           # support ARM64 on Ubuntu, although newer versions do.
           - architecture: arm64
