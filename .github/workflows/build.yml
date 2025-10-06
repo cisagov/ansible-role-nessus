@@ -233,22 +233,6 @@ jobs:
             platform: debian14-systemd
           - architecture: arm64
             platform: kali-systemd
-          # The old version of Nessus that we use by default does not
-          # support ARM64 on Fedora, although newer versions do.
-          - architecture: arm64
-            platform: fedora41-systemd
-            scenario: default
-          - architecture: arm64
-            platform: fedora42-systemd
-            scenario: default
-          # The old version of Nessus that we use by default does not
-          # support ARM64 on Ubuntu, although newer versions do.
-          - architecture: arm64
-            platform: ubuntu-22-systemd
-            scenario: default
-          - architecture: arm64
-            platform: ubuntu-24-systemd
-            scenario: default
         platform:
           - amazonlinux2023-systemd
           - debian10-systemd
@@ -263,7 +247,6 @@ jobs:
           - ubuntu-24-systemd
         scenario:
           - default
-          - latest
     steps:
       - name: Apply standard cisagov job preamble
         uses: cisagov/action-job-preamble@v1

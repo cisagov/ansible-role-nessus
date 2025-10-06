@@ -108,7 +108,7 @@ None.
 | Variable | Description | Default | Required |
 |----------|-------------|---------|----------|
 | nessus_package_bucket | The name of the AWS S3 bucket containing the Nessus package file. | n/a | Yes |
-| nessus_version | The version number of the Nessus package file, as specified in the Nessus package filename. | `8.15.5` | No |
+| nessus_version | The version number of the Nessus package file, as specified in the Nessus package filename. | n/a | Yes |
 
 ## Dependencies ##
 
