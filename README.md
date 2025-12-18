@@ -1,6 +1,7 @@
 # ansible-role-nessus #
 
 [![GitHub Build Status](https://github.com/cisagov/ansible-role-nessus/workflows/build/badge.svg)](https://github.com/cisagov/ansible-role-nessus/actions)
+[![License](https://img.shields.io/github/license/cisagov/ansible-role-nessus)](https://spdx.org/licenses/)
 [![CodeQL](https://github.com/cisagov/ansible-role-nessus/workflows/CodeQL/badge.svg)](https://github.com/cisagov/ansible-role-nessus/actions/workflows/codeql-analysis.yml)
 
 An Ansible role for installing
