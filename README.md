@@ -102,7 +102,9 @@ in the repository's settings.
 
 ## Requirements ##
 
-None.
+- Requires the `amazon.aws` collection and the `boto3` Python package
+  to be present on the Ansible controller since the role code uses
+  `amazon.aws.s3_object`, delegated to `localhost`.
 
 ## Role Variables ##
 
@@ -113,9 +115,7 @@ None.
 
 ## Dependencies ##
 
-- Depends on the `amazon.aws` collection and the `boto3` Python
-  package being present on the Ansible controller since the role code
-  uses `amazon.aws.s3_object`, delegated to `localhost`.
+None.
 
 ## Installation ##
 
