@@ -9,5 +9,6 @@
       ansible.builtin.include_role: # noqa var-naming[no-role-prefix]
         name: ansible-role-nessus
       vars:
-        nessus_package_bucket: "{{ lookup('aws_ssm', '/third_party_bucket_name') }}"
+        nessus_package_bucket: >-
+          {{ lookup('amazon.aws.ssm_parameter', '/third_party_bucket_name') }}
         nessus_version: 10.9.4
