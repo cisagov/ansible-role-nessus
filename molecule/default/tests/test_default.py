@@ -22,9 +22,9 @@ def test_packages(host):
     debian_packages = ["expect", "jq", "nessus"]
     redhat_packages = ["expect", "jq", "Nessus"]
     if host.system_info.distribution in ["debian", "kali", "ubuntu"]:
-        assert all([host.package(pkg).is_installed for pkg in debian_packages])
+        assert all(host.package(pkg).is_installed for pkg in debian_packages)
     elif host.system_info.distribution in ["amzn", "fedora"]:
-        assert all([host.package(pkg).is_installed for pkg in redhat_packages])
+        assert all(host.package(pkg).is_installed for pkg in redhat_packages)
     else:
         assert False, f"Unknown distribution {host.system_info.distribution}"
 
