@@ -26,7 +26,7 @@ def test_packages(host):
     elif host.system_info.distribution in ["amzn", "fedora"]:
         assert all(host.package(pkg).is_installed for pkg in redhat_packages)
     else:
-        assert False, f"Unknown distribution {host.system_info.distribution}"
+        raise AssertionError(f"Unknown distribution {host.system_info.distribution}")
 
 
 def test_nessus_version(host):
