@@ -11,4 +11,4 @@
       vars:
         nessus_package_bucket: >-
           {{ lookup('amazon.aws.ssm_parameter', '/third_party_bucket_name') }}
-        nessus_version: 10.9.4
+        nessus_version: 10.12.1
