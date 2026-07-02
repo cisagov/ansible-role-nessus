@@ -1,8 +1,5 @@
 """Module containing the tests for the default scenario."""
 
-# TODO: See cisagov/ansible-role-nessus#22 for some thoughts on
-# sharing the same test code among the different Molecule scenarios.
-
 # Standard Python Libraries
 import os
 
@@ -14,7 +11,7 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 ).get_hosts("all")
 
 # The version of Nessus that should be installed
-version = "10.9.4"
+version = "10.12.1"
 
 
 def test_packages(host):
